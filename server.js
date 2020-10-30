@@ -7,7 +7,7 @@ const io = require('socket.io')(http);
 const mongoose = require("mongoose");
 
 var port = 3000;
-var dbUri = "mongodb://localhost:27017";
+var dbUri = "mongodb://localhost:27017/chatapp";
 
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
@@ -28,6 +28,7 @@ app.get('/messages', (req, res) => {
 })
 
 app.post('/messages', (req, res) => {
+  console.log("User sent a message")
   var message = new Message(req.body);
   message.save((err) =>{
     if(err)
