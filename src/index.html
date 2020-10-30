@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Real Time Chat</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -15,11 +16,7 @@
       integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf"
       crossorigin="anonymous"
     ></script>
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
-      crossorigin="anonymous"
-    ></script>
+    <script src="/socket.io/socket.io.js"></script>
   </head>
   <body>
     <div class="container">
@@ -29,44 +26,14 @@
         <br />
         <input id="name" class="form-control" placeholder="Name" />
         <br />
-        <textarea
-          id="message"
-          class="form-control"
-          placeholder="Your Message Here"
-        ></textarea>
+        <textarea id="message" class="form-control" placeholder="Your Message Here"></textarea>
         <br />
         <button id="send" class="btn btn-success">Send</button>
       </div>
     </div>
     <div class="messages"></div>
 
-    <script>
-      $(() => {
-        $("#send").click(() => {
-          sendMessage({
-            name: $("#name").val(),
-            message: $("#message").val(),
-          });
-          getMessages();
-        });
-      });
-
-      function addMessages(message) {
-        $("messages").append(`
-                <h4> ${message.name} </h4>
-                <p> ${message.message} </p>
-            `);
-      }
-
-      function getMessages() {
-        $.get("http://localhost:3000/messages", (data) => {
-          data.forEach(addMessages);
-        });
-      }
-
-      function sendMessage(message) {
-        $.post("http://localhost:3000/messages", message);
-      }
+    <script src="src/index.js">
     </script>
   </body>
 </html>
